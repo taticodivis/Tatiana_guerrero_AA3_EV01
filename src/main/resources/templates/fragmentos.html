@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"><body>
+<aside class="sidebar" th:fragment="menu">
+  <a class="brand" th:href="@{/clientes}"><span class="brand-mark">C</span><span>codivis<small>CLIENTES</small></span></a>
+  <p class="nav-label">MÓDULO DE CLIENTES</p>
+  <nav aria-label="Navegación principal"><a class="nav-link" th:href="@{/clientes}">◎ Listado</a><a class="nav-link" th:href="@{/clientes/nuevo}">+ Registrar cliente</a></nav>
+  <div class="sidebar-footer"><span class="avatar">TG</span><div>Tatiana Guerrero<small>Proyecto formativo · SENA</small></div></div>
+</aside>
+<header class="topbar" th:fragment="cabecera"><span>Codivis <span class="separator">/</span> Clientes</span>
+  <form class="logout-form" th:action="@{/salir}" method="post"><span th:text="${usuarioActual}"></span><button class="button secondary" type="submit">Cerrar sesión</button></form>
+</header>
+</body></html>

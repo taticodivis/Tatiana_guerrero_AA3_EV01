@@ -1,0 +1,8 @@
+/target/
+/data/
+/.vscode/
+/.idea/
+*.log
+*.class
+*.zip
+*.rar

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Codivis · Clientes</title><link rel="stylesheet" th:href="@{/assets/crm.css}"></head>
+<body><aside th:replace="~{fragmentos :: menu}"></aside><main class="main"><header th:replace="~{fragmentos :: cabecera}"></header><div class="content">
+  <section class="page-heading"><div><p class="eyebrow">MÓDULO DE CLIENTES</p><h1>Clientes registrados</h1><p>Consulta los datos de los clientes de Codivis.</p></div><a class="button primary" th:href="@{/clientes/nuevo}">+ Registrar cliente</a></section>
+  <p th:if="${param.guardado != null}" class="alert success" role="status">El cliente se registró correctamente.</p>
+  <form class="panel search-form" th:action="@{/clientes}" method="get"><div class="field"><label for="buscar">Buscar por nombre o correo</label><input type="search" id="buscar" name="buscar" th:value="${buscar}" maxlength="120" placeholder="Nombre o correo del cliente"></div><button class="button primary" type="submit">Buscar</button><a class="button secondary" th:href="@{/clientes}">Ver todos</a></form>
+  <section class="panel">
+    <div class="empty" th:if="${#lists.isEmpty(clientes)}"><span class="empty-icon" aria-hidden="true">◎</span><h2 th:text="${#strings.isEmpty(buscar)} ? 'No hay clientes registrados' : 'No se encontraron clientes'"></h2><p th:text="${#strings.isEmpty(buscar)} ? 'Registra el primer cliente para comenzar.' : 'Prueba con otro nombre o correo.'"></p></div>
+    <div class="table-wrap" th:unless="${#lists.isEmpty(clientes)}"><table><caption class="sr-only">Listado de clientes</caption><thead><tr><th scope="col">ID</th><th scope="col">Nombre</th><th scope="col">Correo electrónico</th><th scope="col">Teléfono</th></tr></thead><tbody>
+      <tr th:each="cliente : ${clientes}"><td th:text="${cliente.id()}"></td><td class="contact-name" th:text="${cliente.nombre()}"></td><td th:text="${cliente.correo()}"></td><td th:text="${#strings.isEmpty(cliente.telefono())} ? '—' : ${cliente.telefono()}"></td></tr>
+    </tbody></table></div>
+  </section>
+</div></main></body></html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="${registro} ? 'Codivis · Registro' : 'Codivis · Acceso'">Codivis · Acceso</title>
+  <link rel="stylesheet" th:href="@{/assets/crm.css}"><script th:src="@{/assets/auth.js}" defer></script>
+</head>
+<body class="login-page"><main class="login-card panel">
+  <a class="login-brand" th:href="@{/login}">codivis<span>CLIENTES</span></a>
+  <p class="eyebrow">MÓDULO DE CLIENTES</p>
+  <h1 th:text="${registro} ? 'Registrarse' : 'Iniciar sesión'">Iniciar sesión</h1>
+  <p class="login-intro" th:text="${registro} ? 'Crea tu usuario para acceder al módulo de clientes.' : 'Ingresa tus credenciales para gestionar los clientes.'"></p>
+  <p th:if="${error != null}" class="alert error" role="alert" th:text="${error}"></p>
+  <p th:if="${param.error != null}" class="alert error" role="alert">Usuario o contraseña incorrectos.</p>
+  <p th:if="${param.registro != null}" class="alert success" role="status">Tu cuenta fue creada. Ahora inicia sesión.</p>
+  <p th:if="${param.salida != null}" class="alert success" role="status">Cerraste la sesión correctamente.</p>
+  <form th:action="${registro} ? @{/registro} : @{/login}" method="post">
+    <div class="field"><label for="usuario">Usuario</label><input id="usuario" name="usuario" autocomplete="username" required minlength="3" maxlength="40" th:value="${usuario}" autofocus>
+      <small th:if="${registro}">De 3 a 40 caracteres: letras, números, punto, guion o guion bajo.</small></div>
+    <div class="field"><label for="clave">Contraseña</label><div class="password-field">
+      <input id="clave" name="clave" type="password" th:autocomplete="${registro} ? 'new-password' : 'current-password'" required th:minlength="${registro} ? 12 : 1" maxlength="128">
+      <button class="password-toggle" type="button" data-password-toggle="clave" aria-controls="clave" aria-label="Mostrar contraseña" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/><path class="eye-slash" d="m3 3 18 18"/></svg></button>
+    </div><small th:if="${registro}">Usa de 12 a 128 caracteres.</small></div>
+    <div class="field" th:if="${registro}"><label for="confirmacion">Confirmar contraseña</label><div class="password-field">
+      <input id="confirmacion" name="confirmacion" type="password" autocomplete="new-password" required minlength="12" maxlength="128" aria-describedby="coincidencia-claves">
+      <button class="password-toggle" type="button" data-password-toggle="confirmacion" aria-controls="confirmacion" aria-label="Mostrar confirmación de contraseña" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/><path class="eye-slash" d="m3 3 18 18"/></svg></button>
+    </div><small id="coincidencia-claves" class="password-match" role="status" aria-live="polite" hidden></small></div>
+    <button class="button primary login-submit" type="submit" th:text="${registro} ? 'Crear cuenta' : 'Entrar'">Entrar</button>
+  </form>
+  <p class="login-switch"><span th:text="${registro} ? '¿Ya tienes cuenta?' : '¿No tienes cuenta?'"></span> <a th:href="${registro} ? @{/login} : @{/registro}" th:text="${registro} ? 'Iniciar sesión' : 'Registrarse'"></a></p>
+</main></body></html>

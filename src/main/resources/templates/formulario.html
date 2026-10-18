@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Codivis · Registrar cliente</title><link rel="stylesheet" th:href="@{/assets/crm.css}"></head>
+<body><aside th:replace="~{fragmentos :: menu}"></aside><main class="main"><header th:replace="~{fragmentos :: cabecera}"></header><div class="content">
+  <a class="back-link" th:href="@{/clientes}">← Volver al listado</a>
+  <section class="page-heading"><div><p class="eyebrow">MÓDULO DE CLIENTES</p><h1>Registrar cliente</h1><p>Completa sus datos. Los campos con * son obligatorios.</p></div></section>
+  <p th:if="${error != null}" class="alert error" role="alert" th:text="${error}"></p>
+  <form class="panel client-form" th:action="@{/clientes}" method="post">
+    <div class="form-section"><h2>Datos del cliente</h2><div class="form-grid">
+      <div class="field full"><label for="nombre">Nombre completo *</label><input id="nombre" name="nombre" autocomplete="name" required minlength="2" maxlength="80" th:value="${nombre}" placeholder="Ej. María González"></div>
+      <div class="field"><label for="correo">Correo electrónico *</label><input id="correo" name="correo" type="email" autocomplete="email" required maxlength="120" th:value="${correo}" placeholder="nombre@empresa.com"></div>
+      <div class="field"><label for="telefono">Teléfono (opcional)</label><input id="telefono" name="telefono" type="tel" autocomplete="tel" minlength="7" maxlength="25" th:value="${telefono}" placeholder="Ej. +57 300 123 4567"></div>
+    </div></div>
+    <div class="form-actions"><a class="button secondary" th:href="@{/clientes}">Cancelar</a><button class="button primary" type="submit">Registrar cliente</button></div>
+  </form>
+</div></main></body></html>
